@@ -8,13 +8,13 @@ struct BottomBarView: View {
             HStack(spacing: 4) {
                 ForEach(1...5, id: \.self) { i in
                     Image(systemName: grid.hearts >= i ? "heart.fill" : "heart.slash")
-                        .font(.system(size: 12))
-                        .foregroundColor(grid.hearts >= i ? .red : .black)
+                        .font(.system(size: 13))
+                        .foregroundColor(grid.hearts >= i ? .init(red: 0.85, green: 0.1, blue: 0.1) : .black.opacity(0.5))
                         .contentTransition(.symbolEffect(.replace))
                 }
             }
             .phaseAnimator([false, true], trigger: grid.hearts) { content, phase in
-                content.scaleEffect(phase ? 1.25 : 1)
+                content.scaleEffect(phase ? 1.2 : 1)
             } animation: { _ in
                     .bouncy
             }

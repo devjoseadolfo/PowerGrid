@@ -16,7 +16,7 @@ struct ComponentPurchaseView: View {
                         .foregroundColor(.white)
                         .padding(4)
                         .padding(.horizontal, 8)
-                        .background(showPowerPlants ? Color.init(white: 0.25).opacity(0.5) : Color.clear)
+                        .background(showPowerPlants ? Color.init(white: 0.75).opacity(0.375) : Color.clear)
                         .clipShape(Capsule())
                 }
                 Button {
@@ -27,7 +27,7 @@ struct ComponentPurchaseView: View {
                         .foregroundColor(.white)
                         .padding(4)
                         .padding(.horizontal, 8)
-                        .background(!showPowerPlants ?  Color.init(white: 0.25).opacity(0.5) : Color.clear)
+                        .background(!showPowerPlants ?  Color.init(white: 0.75).opacity(0.375) : Color.clear)
                         .clipShape(Capsule())
                 }
             }
