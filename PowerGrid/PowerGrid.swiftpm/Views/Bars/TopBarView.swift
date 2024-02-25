@@ -34,6 +34,7 @@ struct TopBarView: View {
                         .makeDateString()
                         .uppercased())
                     .font(.system(size: 12, design: .monospaced))
+                    .contentTransition(.numericText())
                 }
                 .frame(width: 70)
                 .padding(.horizontal, 4)
@@ -47,6 +48,7 @@ struct TopBarView: View {
                         .makeTimeString()
                         .uppercased())
                     .font(.system(size: 12, design: .monospaced))
+                    .contentTransition(.numericText())
                 }
                 .frame(width: 60)
                 .padding(.horizontal, 4)
@@ -70,6 +72,7 @@ struct TopBarView: View {
                 .frame(width: 72)
                 .disabled(grid.tutorial)
             }
+            .animation(.linear, value: grid.date)
             .padding(6)
             .capsuleGlass(shadowRadius: 8)
             .overlay {
@@ -84,6 +87,8 @@ struct TopBarView: View {
                 Spacer()
                 Text(grid.money.makeString())
                     .font(.system(size: 12, design: .monospaced))
+                    .contentTransition(.numericText())
+                    .animation(.linear, value: grid.money)
             }
             .frame(width: 100)
             .padding(10)

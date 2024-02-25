@@ -9,7 +9,7 @@ struct BottomBarView: View {
                 ForEach(1...5, id: \.self) { i in
                     Image(systemName: grid.hearts >= i ? "heart.fill" : "heart.slash")
                         .font(.system(size: 12))
-                        .foregroundColor(grid.hearts >= i ? .red : .gray)
+                        .foregroundColor(grid.hearts >= i ? .red : .black)
                         .contentTransition(.symbolEffect(.replace))
                 }
             }
@@ -35,6 +35,9 @@ struct BottomBarView: View {
                     Spacer()
                     Text(grid.currentTotalProduction.makeString() + " MW")
                         .font(.system(size: 12, design: .monospaced))
+                        .contentTransition(.numericText())
+                        .animation(.linear, value: grid.currentTotalProduction)
+                    
                 }
                 .frame(width: 72)
                 .padding(.horizontal, 4)
@@ -44,8 +47,10 @@ struct BottomBarView: View {
                     Text(Image(systemName: "powercord"))
                         .font(.system(size: 12))
                     Spacer()
-                    Text((grid.currentTotalConsumption + grid.batteryConsumption.amount).makeString() + " MW")
+                    Text((grid.currentTotalConsumption + grid.batteryConsumption.amount) .makeString() + " MW")
                         .font(.system(size: 12, design: .monospaced))
+                        .contentTransition(.numericText())
+                        .animation(.linear, value: grid.currentTotalConsumption + grid.batteryConsumption.amount)
                 }
                 .frame(width: 72)
                 .padding(.horizontal, 4)
@@ -57,8 +62,10 @@ struct BottomBarView: View {
                     Text(Image(systemName: "sun.max"))
                         .font(.system(size: 12))
                     Spacer()
-                    Text(String(grid.currentSunlightData.amount) + "%")
+                    Text("\(grid.currentSunlightData.amount)%")
                         .font(.system(size: 12, design: .monospaced))
+                        .contentTransition(.numericText())
+                    .animation(.linear, value: grid.currentSunlightData.amount)
                 }
                 .frame(width: 56)
                 .padding(.horizontal, 4)
@@ -68,8 +75,10 @@ struct BottomBarView: View {
                     Text(Image(systemName: "wind"))
                         .font(.system(size: 12))
                     Spacer()
-                    Text(String(grid.currentWindData.amount) + "%")
+                    Text("\(grid.currentWindData.amount)%")
                         .font(.system(size: 12, design: .monospaced))
+                        .contentTransition(.numericText())
+                    .animation(.linear, value: grid.currentWindData.amount)
                 }
                 .frame(width: 56)
                 .padding(.horizontal, 4)
