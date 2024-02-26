@@ -12,6 +12,6 @@ Hello, welcome to Jose Adolfo Talactac's submission for WWDC24 Swift Student 
 - All assets that aren’t attributed to another party are made by the creator of this Playground App, Jose Adolfo Talactac, including app icon, Playground thumbnail, and the app image assets.
 
 ## Screenshots
-![Screenshot1](https://github.com/devjoseadolfo/PowerGrid/blob/cb199953d073e773f970da698591fc035948af87/Screenshots/PowerGridScreenshot1.png) 
-![Screenshot2](https://github.com/devjoseadolfo/PowerGrid/blob/cb199953d073e773f970da698591fc035948af87/Screenshots/PowerGridScreenshot2.png) 
-![Screenshot3](https://github.com/devjoseadolfo/PowerGrid/blob/cb199953d073e773f970da698591fc035948af87/Screenshots/PowerGridScreenshot3.png)
+![Screenshot1](https://github.com/devjoseadolfo/PowerGrid/blob/0a3681082e6caa633fac9ad72b9c97a7ef6eb762/Screenshots/PowerGridScreenshot1.png) 
+![Screenshot2](https://github.com/devjoseadolfo/PowerGrid/blob/0a3681082e6caa633fac9ad72b9c97a7ef6eb762/Screenshots/PowerGridScreenshot2.png) 
+![Screenshot3](https://github.com/devjoseadolfo/PowerGrid/blob/0a3681082e6caa633fac9ad72b9c97a7ef6eb762/Screenshots/PowerGridScreenshot3.png)
