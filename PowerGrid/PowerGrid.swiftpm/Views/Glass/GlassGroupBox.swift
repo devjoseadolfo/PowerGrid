@@ -15,14 +15,12 @@ public struct GlassGroupBox<Content: View>: View {
 
     public var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Label(title, systemImage: symbolName)
-                    .font(.system(size: 18, weight: .bold))
-                Spacer()
-            }
+            Label(title, systemImage: symbolName)
+                .font(.system(size: 18, weight: .bold))
+                .padding([.horizontal, .top], 8)
             content
         }
-        .padding(16)
+        .padding(8)
         .roundedRectangleGlass(cornerRadius: 16, material: .ultraThin)
     }
 }
