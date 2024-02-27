@@ -7,6 +7,9 @@ extension ElectricGrid {
             customers.append(customer)
             
             for (i, data) in consumptionData.enumerated() {
+                if (i/3) == 0 {
+                    continue
+                }
                 if data.componentType == .commercial && customer is Commercial {
                     consumptionData[i].amount += customer.demandForecast[i/3]
                 } else if data.componentType == .residential && customer is Residential {

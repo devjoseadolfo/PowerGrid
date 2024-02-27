@@ -15,7 +15,7 @@ public class ElectricGrid {
     
     public var date: Date
     public let startDate: Date
-
+    
     public var currentHour: Int {
         let components = Calendar.current.dateComponents([.hour], from: date)
         return components.hour ?? 0
@@ -31,10 +31,10 @@ public class ElectricGrid {
     public var currentUtilityData: [UtilityData] = []
     
     /*
-    public var currentUtilityData: [UtilityData] {
-       productionData + [consumptionData[0], consumptionData[1], consumptionData[2], batteryConsumption]
-    }
-    */
+     public var currentUtilityData: [UtilityData] {
+     productionData + [consumptionData[0], consumptionData[1], consumptionData[2], batteryConsumption]
+     }
+     */
     public var currentTotalProduction: Int {
         productionData.reduce(0) { x, y in
             x + y.amount
@@ -66,7 +66,7 @@ public class ElectricGrid {
     public var newGame: Bool = false
     public var cellToDelete: GridCell?
     public var sufficientFundsError: Bool = false
-        
+    
     public init(rowCount: Int, columnCount: Int) {
         self.rowCount = rowCount
         self.columnCount = columnCount
@@ -77,9 +77,9 @@ public class ElectricGrid {
         self.startDate = date
         self.date = date
         self.batteryConsumption = .init(date,
-                                   amount: 0,
-                                   componentType: .storage,
-                                   utilityDataType: .consumption)
+                                        amount: 0,
+                                        componentType: .storage,
+                                        utilityDataType: .consumption)
         
         self.sunlightData = generateInitialSunlightData()
         self.windData = generateInitialWindData()
@@ -95,13 +95,13 @@ public class ElectricGrid {
         addComponent(NaturalGas(), at: 13)
         addComponent(NaturalGas(), at: 14)
         cells[14].component?.active = false
-    /*
-        addComponent(WindTurbine(), at: 15)
-        addComponent(Hydroelectric(), at: 16)
-        addComponent(Industrial(), at: 17)
-        addComponent(WindTurbine(), at: 18)
-        addComponent(BatteryStorage(), at: 19)
-       */
+        /*
+         addComponent(WindTurbine(), at: 15)
+         addComponent(Hydroelectric(), at: 16)
+         addComponent(Industrial(), at: 17)
+         addComponent(WindTurbine(), at: 18)
+         addComponent(BatteryStorage(), at: 19)
+         */
         sunlightData[0] = SunlightData(date,
                                        amount: 20,
                                        weather: .sunny)
@@ -185,9 +185,9 @@ extension ElectricGrid {
     public func storeSurplusProduction() {
         guard currentTotalConsumption < currentTotalProduction else {
             batteryConsumption = .init(date,
-                                        amount: 0,
-                                        componentType: .storage,
-                                        utilityDataType: .consumption)
+                                       amount: 0,
+                                       componentType: .storage,
+                                       utilityDataType: .consumption)
             return
         }
         var surplus = currentTotalProduction - currentTotalConsumption
@@ -233,9 +233,9 @@ extension ElectricGrid {
             x + storage.stored
         }
         batteryConsumption = .init(date,
-                                    amount: batteryConsumptionAmount,
-                                    componentType: .storage,
-                                    utilityDataType: .consumption)
+                                   amount: batteryConsumptionAmount,
+                                   componentType: .storage,
+                                   utilityDataType: .consumption)
     }
     
     public func setFlexiblePowerPlants() {
@@ -371,7 +371,7 @@ extension ElectricGrid {
         for customer in self.customers {
             customer.addToDemandForecast(currentHour: currentHour)
         }
-    
+        
         consumptionData.removeFirst()
         consumptionData.removeFirst()
         consumptionData.removeFirst()

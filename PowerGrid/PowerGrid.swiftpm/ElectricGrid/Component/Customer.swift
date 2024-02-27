@@ -79,7 +79,7 @@ public class Residential: Customer {
     
     public init(startHour: Int = 8) {
         Self.count += 1
-        createInitialDemandForecast(startHour: 8)
+        createInitialDemandForecast(startHour: startHour)
         demand = demandForecast[0]
     }
 }
@@ -112,7 +112,7 @@ public class Commercial: Customer {
     
     public init(startHour: Int = 8) {
         Self.count += 1
-        createInitialDemandForecast(startHour: 8)
+        createInitialDemandForecast(startHour: startHour)
         demand = demandForecast[0]
     }
 }
@@ -145,7 +145,7 @@ public class Industrial: Customer {
     
     public init(startHour: Int = 8) {
         Self.count += 1
-        createInitialDemandForecast(startHour: 8)
+        createInitialDemandForecast(startHour: startHour)
         demand = demandForecast[0]
     }
 }
