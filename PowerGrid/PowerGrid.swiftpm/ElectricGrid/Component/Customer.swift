@@ -23,7 +23,8 @@ extension Customer {
     
     public func createInitialDemandForecast(startHour: Int) {
         for hour in (startHour...startHour+11) {
-            demandForecast.append(computeDemand(hour: hour))
+            let newHour = hour > 23 ? hour - 24 : hour
+            demandForecast.append(computeDemand(hour: newHour))
         }
     }
     
