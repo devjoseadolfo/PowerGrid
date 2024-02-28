@@ -15,12 +15,7 @@ struct CellImageView<C: Component>: View {
     }
     
     @ObservedObject var component: C
-    
-    @State private var degree: Double = 0
-    @State private var amountOfIncrease: Double = 0
-    @State private var isRotating: Bool = false
-
-    let timer = Timer.publish(every: 6 / 360, on: .main, in: .common).autoconnect()
+    @State var degree: Double = 0
     
     var body: some View {
         ZStack {
@@ -37,34 +32,32 @@ struct CellImageView<C: Component>: View {
                 .transition(.opacity)
             }
             if component is WindTurbine {
-                Image("wind1")
-                    .resizable()
+                TimelineView(.animation(minimumInterval: 1/60,
+                                        paused: !component.active)) { context in
+                    ZStack {
+                        Image("wind1")
+                            .resizable()
+                            
+                        ZStack {
+                            Image("wind2")
+                                .resizable()
+                                .rotationEffect(.degrees(
+                                     degree
+                                ))
+                            Image("wind3")
+                                .resizable()
+                        }.offset(y:-8)
+                    }
                     .brightness(brightness)
-                ZStack {
-                    Image("wind2")
-                        .resizable()
-                        .brightness(brightness)
-                        .rotationEffect(.degrees(degree))
-                        .onAppear {
-                            self.isRotating = true
-                            self.amountOfIncrease = 3
+                    .animation(nil, value: context.date)
+                    .onChange(of: context.date) { _, _ in
+                        if degree == 358 {
+                            degree = 0
+                        } else {
+                            degree += 2
                         }
-                    Image("wind3")
-                        .resizable()
-                        .brightness(brightness)
-                }
-                .offset(y:-8)
-                .onReceive(self.timer) { _ in
-                    withAnimation(.linear) { 
-                        self.degree += self.amountOfIncrease
+                        
                     }
-                    if degree > 360 {
-                        degree -= 360
-                    }
-                }
-                .onChange(of: component.active) { _, newValue in
-                    isRotating = true
-                    self.amountOfIncrease = newValue ? 3 : 0
                 }
             } else {
                 Image(component.imageName)
@@ -89,6 +82,13 @@ struct CellImageView<C: Component>: View {
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .transition(.scale)
         .animation(.easeIn, value: component.active)
+    }
+    
+    func computeAngle(date: Date) -> Double {
+        let s = Calendar.current.dateComponents([.second], from: date).second!
+        let ns = Calendar.current.dateComponents([.nanosecond], from: date).nanosecond!
+        
+        return (Double(s % 3) * 120) + (Double(ns) / 8333333.33333)
     }
 }
 

@@ -94,6 +94,7 @@ public class ElectricGrid {
         addComponent(SolarFarm(), at: 12)
         addComponent(NaturalGas(), at: 13)
         addComponent(NaturalGas(), at: 14)
+        //addComponent(WindTurbine(), at: 15)
         cells[14].component?.active = false
       
         sunlightData[0] = SunlightData(date,
