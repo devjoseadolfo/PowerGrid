@@ -61,7 +61,7 @@ struct DemandInfoView: View {
                 .animation(.linear, value: grid.consumptionData[0].date)
                 .frame(maxHeight: 135)
                 .padding(16)
-                .roundedRectangleGlass(cornerRadius: 8, material: .thin)
+               
             }
         }
     }

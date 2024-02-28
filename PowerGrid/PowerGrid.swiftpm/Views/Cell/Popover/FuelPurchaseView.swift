@@ -38,6 +38,7 @@ struct FuelPurchaseView: View {
             .grayscale(enable20Percent ? 0 : 1)
             .opacity(enable20Percent ? 1 : 0.5)
             .disabled(!enable20Percent)
+            
             Button {
                 grid.money -= priceFill
                 naturalGas.fuelLevel = 1000

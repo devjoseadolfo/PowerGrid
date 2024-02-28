@@ -3,6 +3,7 @@ import SwiftUI
 struct CustomerPaymentNotificationView<C: Customer> : View {
     @Environment(ElectricGrid.self) private var grid
     @ObservedObject var customer: C
+    
     var body: some View {
         Text("+$" + String(customer.lastPayment))
             .animation(nil, value: customer.lastPayment)

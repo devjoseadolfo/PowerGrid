@@ -12,7 +12,8 @@ struct SideBarView: View {
                             .offset(x: 320, y: 20)
                     }
                 }
-            DemandInfoView()                .overlay {
+            DemandInfoView()                
+                .overlay {
                     if grid.tutorialLevel == 10 {
                         Tutorial10View()
                             .offset(x: 320, y: 20)

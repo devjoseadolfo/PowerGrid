@@ -47,7 +47,6 @@ struct SunlightInfoView: View {
             .frame(maxHeight: 90)
             .padding(.top, 10)
             .padding(16)
-            .roundedRectangleGlass(cornerRadius: 8, material: .thin)
         }
     }
 }

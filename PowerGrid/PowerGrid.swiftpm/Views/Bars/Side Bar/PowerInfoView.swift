@@ -34,7 +34,6 @@ struct PowerInfoView: View {
             }
             .animation(.linear, value: grid.currentUtilityData)
             .padding(16)
-            .roundedRectangleGlass(cornerRadius: 8, material: .thin)
         }
     }
 }

@@ -12,7 +12,7 @@ public struct CapsuleButtonStyle: ButtonStyle {
             .padding(6)
             .padding(.horizontal, 4)
             .background(Color.init(white: configuration.isPressed ? 0.2: 0.3))
-            //.scaleEffect(configuration.isPressed ? 1.1: 1.0)
+            .scaleEffect(configuration.isPressed ? 1.1: 1.0)
             .overlay(content: {
                 Capsule()
                     .offset(x: configuration.isPressed ? -8 : 8,

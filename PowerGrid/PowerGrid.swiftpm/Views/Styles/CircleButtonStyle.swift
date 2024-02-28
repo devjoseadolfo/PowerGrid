@@ -19,7 +19,7 @@ public struct CircleButtonStyle: ButtonStyle {
             .foregroundStyle(
                 LinearGradient(colors: configuration.isPressed
                                ? [.init(white: 0.6), .init(white: 0.8)]
-                               : [.white, .init(white: 0.8)],
+                               : [.white, .init(white: 0.75)],
                                             startPoint: .top,
                                             endPoint: .bottom))
             .background(configuration.isPressed ?

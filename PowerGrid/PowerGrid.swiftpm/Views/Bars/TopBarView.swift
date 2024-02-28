@@ -5,103 +5,113 @@ struct TopBarView: View {
     
     var body: some View {
         HStack(alignment: .center,spacing: 20) {
-            HStack{
-                Button {
-                    grid.newGame = true
-                } label: {
-                    HStack {
-                        Text(Image(systemName: "gamecontroller"))
-                            .font(.system(size: 12))
-                        Spacer()
-                        Text("NEW GAME")
-                            .font(.system(size: 12, design: .monospaced))
-                    }
-                    .padding(2)
-                    
-                }
-                .buttonStyle(CapsuleButtonStyle())
-                .frame(width: 112)
-                .disabled(grid.tutorial)
-            }
-            .padding(6)
-            .capsuleGlass(shadowRadius: 8)
-            HStack{
-                HStack {
-                    Text(Image(systemName: "calendar"))
-                        .font(.system(size: 12))
-                    Spacer()
-                    Text(grid.date
-                        .makeDateString()
-                        .uppercased())
-                    .font(.system(size: 12, design: .monospaced))
-                    .contentTransition(.numericText())
-                }
-                .frame(width: 70)
-                .padding(.horizontal, 4)
-                Divider()
-                    .frame(height: 16)
-                HStack {
-                    Text(Image(systemName: "clock"))
-                        .font(.system(size: 12))
-                    Spacer()
-                    Text(grid.date
-                        .makeTimeString()
-                        .uppercased())
-                    .font(.system(size: 12, design: .monospaced))
-                    .contentTransition(.numericText())
-                }
-                .frame(width: 60)
-                .padding(.horizontal, 4)
-                
-                Button {
-                    if grid.money >= grid.calculateTotalRunningCost() {
-                        grid.addHour()
-                    } else {
-                        grid.sufficientFundsError = true
-                    }
-                } label: {
-                    HStack {
-                        Text(Image(systemName: "hourglass.badge.plus"))
-                            .font(.system(size: 12))
-                        Spacer()
-                        Text("+1HR".uppercased())
-                            .font(.system(size: 12, design: .monospaced))
-                    }
-                }
-                .buttonStyle(CapsuleButtonStyle())
-                .frame(width: 72)
-                .disabled(grid.tutorial)
-            }
-            .animation(.linear, value: grid.date)
-            .padding(6)
-            .capsuleGlass(shadowRadius: 8)
-            .overlay {
-                if grid.tutorialLevel == 12 {
-                    Tutorial12View()
-                        .offset(x: 90, y: 115)
-                }
-            }
-            HStack {
-                Text(Image(systemName: "dollarsign"))
-                    .font(.system(size: 12))
-                Spacer()
-                Text(grid.money.makeString())
-                    .font(.system(size: 12, design: .monospaced))
-                    .contentTransition(.numericText())
-                    .animation(.linear, value: grid.money)
-            }
-            .frame(width: 100)
-            .padding(10)
-            .padding(.horizontal, 4)
-            .capsuleGlass(shadowRadius: 8)
-            .overlay {
-                if grid.tutorialLevel == 8 {
-                    Tutorial8View()
-                        .offset(y: 125)
-                }
-            }
+            newGame
+            date
+            money
         }
         .padding(.top, 16)
         
+    }
+    
+    var newGame: some View {
+        HStack{
+            Button {
+                grid.newGame = true
+            } label: {
+                HStack {
+                    Text(Image(systemName: "gamecontroller"))
+                        .barTextStyle()
+                    Spacer()
+                    Text("NEW GAME")
+                        .barTextStyle()
+                }
+                .padding(2)
+                
+            }
+            .buttonStyle(CapsuleButtonStyle())
+            .frame(width: 112)
+            .disabled(grid.tutorial)
+        }
+        .padding(6)
+        .capsuleGlass(shadowRadius: 8)
+    }
+    
+    var date: some View {
+        HStack{
+            HStack {
+                Text(Image(systemName: "calendar"))
+                    .barTextStyle()
+                Spacer()
+                Text(grid.date
+                    .makeDateString()
+                    .uppercased())
+                .barTextStyle()
+                .contentTransition(.numericText())
+            }
+            .frame(width: 70)
+            .padding(.horizontal, 4)
+            DarkDivider()
+            HStack {
+                Text(Image(systemName: "clock"))
+                    .barTextStyle()
+                Spacer()
+                Text(grid.date
+                    .makeTimeString()
+                    .uppercased())
+                .font(.system(size: 12, design: .monospaced))
+                .contentTransition(.numericText())
+            }
+            .frame(width: 60)
+            .padding(.horizontal, 4)
+            Button {
+                if grid.money >= grid.calculateTotalRunningCost() {
+                    grid.addHour()
+                } else {
+                    grid.sufficientFundsError = true
+                }
+            } label: {
+                HStack {
+                    Text(Image(systemName: "hourglass.badge.plus"))
+                        .barTextStyle()
+                    Spacer()
+                    Text("+1HR".uppercased())
+                        .barTextStyle()
+                }
+            }
+            .buttonStyle(CapsuleButtonStyle())
+            .frame(width: 72)
+            .disabled(grid.tutorial)
+        }
+        .animation(.linear, value: grid.date)
+        .padding(6)
+        .capsuleGlass(shadowRadius: 8)
+        .overlay {
+            if grid.tutorialLevel == 12 {
+                Tutorial12View()
+                    .offset(x: 90, y: 115)
+            }
+        }
+    }
+    
+    var money: some View {
+        HStack {
+            Text(Image(systemName: "dollarsign"))
+                .font(.system(size: 12))
+            Spacer()
+            Text(grid.money.makeString())
+                .font(.system(size: 12, design: .monospaced))
+                .contentTransition(.numericText())
+                .animation(.linear, value: grid.money)
+        }
+        .frame(width: 100)
+        .padding(10)
+        .padding(.horizontal, 4)
+        .capsuleGlass(shadowRadius: 8)
+        .overlay {
+            if grid.tutorialLevel == 8 {
+                Tutorial8View()
+                    .offset(y: 125)
+            }
+        }
     }
 }

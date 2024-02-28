@@ -13,16 +13,15 @@ struct AlertView: View {
     var body: some View {
         VStack(spacing: 12) {
             Text(title)
-                .font(.system(size: 18, weight: .bold))
+                .titleTextStyle()
             Text(message)
-                .font(.system(size: 16, weight: .regular))
+                .bodyTextStyle()
                 .multilineTextAlignment(.center)
-                .foregroundStyle(.white.opacity(0.85))
             Button {
                 action()
             } label: {
                 Text(actionName)
-                    .font(.system(size: 16, weight: .bold))
+                    .buttonTextStyle()
             }
             .buttonStyle(RoundedRectangleButtonStyle(color: buttonColor))
             .padding(.top, 8)

@@ -11,32 +11,22 @@ struct ComponentInfoView<C: Component>: View {
                     Text(component.name)
                         .font(.system(size: 18,
                                       weight: .bold))
-                    if component is (any PowerPlant) {
-                        Text("POWER PLANT")
-                            .font(.system(size: 12,
-                                          weight: .regular,
-                                          design: .monospaced))
-                            .opacity(0.75)
-                    } else if component is (any Customer) {
-                        Text("CUSTOMER")
-                            .font(.system(size: 12,
-                                          weight: .regular,
-                                          design: .monospaced))
-                            .opacity(0.75)
-                    }
+                    Text(component is (any PowerPlant) ? "POWER PLANT" : "CUSTOMER")
+                        .captionTextStyle()
                 }
                 Spacer()
                 if component is (any PowerPlant) {
                     Button {
                         component.active.toggle()
                     } label: {
-                        Label("Active", systemImage: component.active ? "play" : "pause")
+                        Label("Active", systemImage: component.active ? "play.fill" : "pause.fill")
                             .labelStyle(.iconOnly)
                             .imageScale(.large)
-                            .font(.system(size: 16, weight: .regular))
+                            .font(.system(size: 16, weight: .bold))
                             .symbolEffect(.bounce, value: component.active)
+                            .frame(width: 24, height: 24)
                     }
-                    .buttonStyle(ToggleButtonStyle(color: .green, isChosen: component.active))
+                    .buttonStyle(CircleButtonStyle(color: component.active ? .green : .gray))
                 }
             }
             
@@ -67,9 +57,7 @@ struct ComponentInfoView<C: Component>: View {
                                      blue: 0.2,
                                      opacity: 1.0))
                     CustomerDemandChartView(customer: customer)
-                        .padding(8)
-                        .padding([.top, .trailing], 4)
-                        .roundedRectangleGlass(cornerRadius: 8, material: .thinMaterial)
+                        
                         .padding(.top, 4)
                         .tint(customer is Industrial ? .init(red: 0.5, green: 0.2, blue: 0.2) : (customer is Commercial ? .init(red: 0.7, green: 0.2, blue: 0.2) : .init(red: 0.9, green: 0.2, blue: 0.2)))
                 }
@@ -90,7 +78,6 @@ struct ComponentInfoView<C: Component>: View {
                                           totalValue: 1000)
                     .tint(Color.init(.sRGB,
                                      red: 0.65, green: 0.1, blue: 0.9))
-                    .animation(.easeIn, value: naturalGas.fuelLevel)
                     FuelPurchaseView(naturalGas: naturalGas)
                 }
                 if let battery = component as? BatteryStorage {
@@ -106,7 +93,6 @@ struct ComponentInfoView<C: Component>: View {
                                           currentValue: Double(battery.storage),
                                           totalValue:  Double(battery.maxStorage))
                     .tint(.green)
-                    .animation(.easeIn, value: battery.storage)
                 }
                 if component is WindTurbine {
                     ComponentInfoBodyView(title: "Wind Level:",

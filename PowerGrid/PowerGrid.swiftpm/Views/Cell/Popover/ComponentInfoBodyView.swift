@@ -26,29 +26,23 @@ struct ComponentInfoBodyView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(title + " ")
-                .font(.system(size: 15,
-                              weight: .regular))
+                .bodyTextStyle()
             + Text(titleValue)
-                .font(.system(size: 15,
-                              weight: .regular,
-                              design: .monospaced))
+                .bodyTextStyle()
+                .monospaced()
             if let subtitle = subtitle,
                let subtitleValue = subtitleValue {
                 Text(subtitle + " ")
-                    .font(.system(size: 12,
-                                  weight: .regular))
-                    .foregroundStyle(.white.opacity(0.75))
+                    .captionTextStyle()
                 + Text(subtitleValue)
-                    .font(.system(size: 12,
-                                  weight: .regular,
-                                  design: .monospaced))
-                    .foregroundStyle(.white.opacity(0.75))
+                    .captionTextStyle()
+                    .monospaced()
             }
             if let currentValue = currentValue,
                let totalValue = totalValue {
                 ProgressView(value: currentValue, total: totalValue)
                     .progressViewStyle(BarProgressStyle())
-                
+                    .animation(.easeIn, value: currentValue)
             }
         }
         

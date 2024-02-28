@@ -41,7 +41,7 @@ struct CellPopoverView: View {
                     grid.cellToDelete = cell
                 } label: {
                     Text("Delete")
-                        .font(.system(size: 16, weight: .bold))
+                        .buttonTextStyle()
                 }
                 .buttonStyle(RoundedRectangleButtonStyle(color: .red))
                 .padding(.top, 8)

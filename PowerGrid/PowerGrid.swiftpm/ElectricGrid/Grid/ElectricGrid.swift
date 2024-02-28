@@ -60,7 +60,7 @@ public class ElectricGrid {
     public let samplePowerPlants: [any PowerPlant] = [NaturalGas(), SolarFarm(), WindTurbine(), Hydroelectric(), BatteryStorage()]
     public let sampleCustomers: [any Customer] = [Residential(), Commercial(), Industrial()]
     
-    public var showOnboarding: Bool = true
+    public var showOnboarding: Bool = false
     public var tutorial: Bool = false
     public var tutorialLevel: Int = 0
     public var newGame: Bool = false
@@ -89,19 +89,13 @@ public class ElectricGrid {
             }
         }
         
-        addComponent(Commercial(), at: 10)
-        addComponent(Residential(), at: 11)
+        addComponent(Commercial(startHour: currentHour), at: 10)
+        addComponent(Residential(startHour: currentHour), at: 11)
         addComponent(SolarFarm(), at: 12)
         addComponent(NaturalGas(), at: 13)
         addComponent(NaturalGas(), at: 14)
         cells[14].component?.active = false
-        /*
-         addComponent(WindTurbine(), at: 15)
-         addComponent(Hydroelectric(), at: 16)
-         addComponent(Industrial(), at: 17)
-         addComponent(WindTurbine(), at: 18)
-         addComponent(BatteryStorage(), at: 19)
-         */
+      
         sunlightData[0] = SunlightData(date,
                                        amount: 20,
                                        weather: .sunny)

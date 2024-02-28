@@ -40,6 +40,9 @@ struct CustomerDemandChartView: View {
             }
         }
         .frame(maxHeight: 100)
+        .padding(8)
+        .padding([.top, .trailing], 4)
+        .roundedRectangleGlass(cornerRadius: 8, material: .thinMaterial)
     }
     
     func generateUtilityData() -> [UtilityData] {
