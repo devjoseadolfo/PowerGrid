@@ -10,4 +10,12 @@ extension Color {
                      opacity: Double(resolvedColor.opacity))
     }
     
+    func getComponents() -> (red: Double, green: Double, blue: Double, alpha: Double) {
+        let resolvedColor = self.resolve(in: .init())
+        return (Double(resolvedColor.red),
+                Double(resolvedColor.green),
+                Double(resolvedColor.blue),
+                Double(resolvedColor.opacity))
+    }
+    
 }

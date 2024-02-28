@@ -2,115 +2,27 @@ import SwiftUI
 
 struct CellView: View {
     @Environment(ElectricGrid.self) private var grid
-    var cell: GridCell
+    
     @State var showPopover: Bool = false
-
+    
+    var cell: GridCell
+    
     var body: some View {
-        ZStack{
-            CellBackgroundView()
-                .grayscale(cell.component == nil ? 0.9 : 0)
-            if cell.component == nil {
-                Image(systemName: "plus.circle.fill")
-                    .font(.system(size: 40))
-                    .foregroundStyle(.white.opacity(0.80))
-                    .contentTransition(.symbolEffect(.replace))
-                if showPopover {
-                    Color.green
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .blendMode(.color)
-                }
-            } else if let windTurbine = cell.component as? WindTurbine {
-                CellImageView(component: windTurbine)
-                if showPopover {
-                    Color.green
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .blendMode(.color)
-                }
-                CellGlanceView(component: windTurbine)
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .offset(y:18)
-                PowerPlantNotificationView(powerPlant: windTurbine)
-            } else if let solarFarm = cell.component as? SolarFarm {
-                CellImageView(component: solarFarm)
-                if showPopover {
-                    Color.green
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .blendMode(.color)
-                }
-                CellGlanceView(component: solarFarm)
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .offset(y:18)
-                PowerPlantNotificationView(powerPlant: solarFarm)
-            } else if let naturalGas = cell.component as? NaturalGas {
-                CellImageView(component: naturalGas)
-                if showPopover {
-                    Color.green
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .blendMode(.color)
-                }
-                CellGlanceView(component: naturalGas)
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .offset(y:18)
-                PowerPlantNotificationView(powerPlant: naturalGas)
-            } else if let hydroelectric = cell.component as? Hydroelectric {
-                CellImageView(component: hydroelectric)
-                if showPopover {
-                    Color.green
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .blendMode(.color)
-                }
-                CellGlanceView(component: hydroelectric)
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .offset(y:18)
-                PowerPlantNotificationView(powerPlant: hydroelectric)
-            } else if let residential = cell.component as? Residential {
-                CellImageView(component: residential)
-                if showPopover {
-                    Color.green
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .blendMode(.color)
-                }
-                CellGlanceView(component: residential)
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .offset(y:18)
-                CustomerPaymentNotificationView(customer: residential)
-            } else if let commercial = cell.component as? Commercial {
-                CellImageView(component: commercial)
-                if showPopover {
-                    Color.green
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .blendMode(.color)
-                }
-                CellGlanceView(component: commercial)
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .offset(y:18)
-                CustomerPaymentNotificationView(customer: commercial)
-            } else if let industrial = cell.component as? Industrial {
-                CellImageView(component: industrial)
-                if showPopover {
-                    Color.green
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .blendMode(.color)
-                }
-                CellGlanceView(component: industrial)
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .offset(y:18)
-                CustomerPaymentNotificationView(customer: industrial)
-            } else if let batteryStorage = cell.component as? BatteryStorage {
-                CellImageView(component: batteryStorage)
-                if showPopover {
-                    Color.green
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .blendMode(.color)
-                }
-                CellGlanceView(component: batteryStorage)
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .offset(y:18)
-                PowerPlantNotificationView(powerPlant: batteryStorage)
+        ZStack {
+            image
+            if showPopover {
+                Color.green
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .blendMode(.color)
             }
-           
         }
-        .popover(present: $showPopover, 
+        .frame(width: 100, height: 100)
+        /*
+        .background(Color(white: 0.9).opacity(0.25))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+     */
+        .roundedRectangleGlass(cornerRadius: 16, material: .ultraThin, colorScheme: .dark)
+        .popover(present: $showPopover,
                  attributes: {
             $0.presentation.animation = .easeIn
             $0.position = .absolute(originAnchor: .left, popoverAnchor: .right)
@@ -132,6 +44,12 @@ struct CellView: View {
         }
         .animation(.easeIn, value: grid.date)
         .animation(.easeIn, value: cell.component?.id)
+        .overlay {
+            notification
+        }
+        .overlay {
+            glance
+        }
         .overlay {
             if cell.index == 24 && grid.tutorialLevel == 1 {
                 Tutorial1View()
@@ -176,5 +94,82 @@ struct CellView: View {
             }
         })
         .padding(.vertical, 10)
+    }
+    
+    var image: some View {
+        ZStack {
+            if cell.component == nil {
+                Image(systemName: "plus")
+                    .font(.system(size: 40))
+                    .foregroundStyle(
+                        LinearGradient(colors: [.white.opacity(0.75),
+                                                             .white.opacity(0.9)],
+                                                    startPoint: .top,
+                                                    endPoint: .bottom)
+                    )
+            } else if let windTurbine = cell.component as? WindTurbine {
+                CellImageView(component: windTurbine)
+            } else if let solarFarm = cell.component as? SolarFarm {
+                CellImageView(component: solarFarm)
+            } else if let naturalGas = cell.component as? NaturalGas {
+                CellImageView(component: naturalGas)
+            } else if let hydroelectric = cell.component as? Hydroelectric {
+                CellImageView(component: hydroelectric)
+            } else if let residential = cell.component as? Residential {
+                CellImageView(component: residential)
+            } else if let commercial = cell.component as? Commercial {
+                CellImageView(component: commercial)
+            } else if let industrial = cell.component as? Industrial {
+                CellImageView(component: industrial)
+            } else if let batteryStorage = cell.component as? BatteryStorage {
+                CellImageView(component: batteryStorage)
+            }
+        }
+    }
+    
+    var glance: some View {
+        ZStack {
+            if let windTurbine = cell.component as? WindTurbine {
+                CellGlanceView(component: windTurbine)
+            } else if let solarFarm = cell.component as? SolarFarm {
+                CellGlanceView(component: solarFarm)
+            } else if let naturalGas = cell.component as? NaturalGas {
+                CellGlanceView(component: naturalGas)
+            } else if let hydroelectric = cell.component as? Hydroelectric {
+                CellGlanceView(component: hydroelectric)
+            } else if let residential = cell.component as? Residential {
+                CellGlanceView(component: residential)
+            } else if let commercial = cell.component as? Commercial {
+                CellGlanceView(component: commercial)
+            } else if let industrial = cell.component as? Industrial {
+                CellGlanceView(component: industrial)
+            } else if let batteryStorage = cell.component as? BatteryStorage {
+                CellGlanceView(component: batteryStorage)
+            }
+        }
+        .frame(maxHeight: .infinity, alignment: .bottom)
+        .offset(y:18)
+    }
+    
+    var notification: some View {
+        ZStack {
+            if let windTurbine = cell.component as? WindTurbine {
+                PowerPlantNotificationView(powerPlant: windTurbine)
+            } else if let solarFarm = cell.component as? SolarFarm {
+                PowerPlantNotificationView(powerPlant: solarFarm)
+            } else if let naturalGas = cell.component as? NaturalGas {
+                PowerPlantNotificationView(powerPlant: naturalGas)
+            } else if let hydroelectric = cell.component as? Hydroelectric {
+                PowerPlantNotificationView(powerPlant: hydroelectric)
+            } else if let residential = cell.component as? Residential {
+                CustomerPaymentNotificationView(customer: residential)
+            } else if let commercial = cell.component as? Commercial {
+                CustomerPaymentNotificationView(customer: commercial)
+            } else if let industrial = cell.component as? Industrial {
+                CustomerPaymentNotificationView(customer: industrial)
+            } else if let batteryStorage = cell.component as? BatteryStorage {
+                PowerPlantNotificationView(powerPlant: batteryStorage)
+            }
+        }
     }
 }

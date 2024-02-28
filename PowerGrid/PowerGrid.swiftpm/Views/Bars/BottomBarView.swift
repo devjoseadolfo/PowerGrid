@@ -4,7 +4,7 @@ struct BottomBarView: View {
     @Environment(ElectricGrid.self) private var grid
     
     var body: some View {
-        HStack(alignment: .center,spacing: 20) {
+        HStack(alignment: .center, spacing: 20) {
             hearts
             production
             weather

@@ -2,9 +2,11 @@ import SwiftUI
 
 extension View {
     public func roundedRectangleGlass(cornerRadius: CGFloat,
-                                      material: Material = .ultraThinMaterial) -> some View {
+                                      material: Material = .ultraThinMaterial,
+                                      colorScheme: ColorScheme = .dark) -> some View {
         return modifier(RoundedRectangleGlassView(cornerRadius: cornerRadius,
-                                                  material: material))
+                                                  material: material,
+                                                  colorScheme: colorScheme))
     }
     
     public func capsuleGlass(shadowRadius: Double = 16) -> some View {

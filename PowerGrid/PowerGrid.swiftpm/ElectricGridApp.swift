@@ -19,7 +19,7 @@ struct ElectricGridApp: App {
                             gameOver = true
                         }
                     }
-                    .frame(minWidth: 1000, minHeight: 600)
+                    .frame(minWidth: 1200, minHeight: 900)
                     .ignoresSafeArea()
                     .grayscale(state ? 1.0 : 0)
                     .disabled(state)

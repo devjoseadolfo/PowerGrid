@@ -4,13 +4,12 @@ struct TopBarView: View {
     @Environment(ElectricGrid.self) private var grid
     
     var body: some View {
-        HStack(alignment: .center,spacing: 20) {
+        HStack(alignment: .center, spacing: 20) {
             newGame
             date
             money
         }
         .padding(.top, 16)
-        
     }
     
     var newGame: some View {
@@ -37,7 +36,7 @@ struct TopBarView: View {
     }
     
     var date: some View {
-        HStack{
+        HStack {
             HStack {
                 Text(Image(systemName: "calendar"))
                     .barTextStyle()

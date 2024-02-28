@@ -3,14 +3,17 @@ import SwiftUI
 struct RoundedRectangleGlassView: ViewModifier {
     let cornerRadius: CGFloat
     let material: Material
+    let colorScheme: ColorScheme
     
     @Binding var isPressed: Bool
     
     init(cornerRadius: CGFloat,
          material: Material,
+         colorScheme: ColorScheme = .dark,
          isPressed: Binding<Bool> = .constant(false)) {
         self.cornerRadius = cornerRadius
         self.material = material
+        self.colorScheme = colorScheme
         self._isPressed = isPressed
     }
     
@@ -32,7 +35,7 @@ struct RoundedRectangleGlassView: ViewModifier {
             .shadow(radius: isPressed ? 0: cornerRadius,
                     x: isPressed ? 0 : -cornerRadius/2, 
                     y: isPressed ? 0 : cornerRadius/2)
-            .environment(\.colorScheme, .dark)
+            .environment(\.colorScheme, colorScheme)
             .animation(.easeIn, value: isPressed)
     }
 }
