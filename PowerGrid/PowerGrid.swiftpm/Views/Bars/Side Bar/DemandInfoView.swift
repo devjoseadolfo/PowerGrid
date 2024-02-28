@@ -39,7 +39,14 @@ struct DemandInfoView: View {
                             .foregroundStyle(Color(white: 0.95))
                     }
                 }
+             
                 .chartLegend(position: .bottom, alignment: .top, spacing: 16) {
+            
+                }
+                .animation(.linear, value: grid.consumptionData[0].date)
+                .frame(minHeight: UIScreen.main.bounds.height > 800 ? 120 : 80, maxHeight: 150)
+                
+                if UIScreen.main.bounds.height > 800 {
                     HStack {
                         Circle()
                             .frame(width: 9, height: 9)
@@ -58,11 +65,10 @@ struct DemandInfoView: View {
                             .foregroundStyle(Color(white: 0.95))                            .font(.system(size: 12))
                     }
                 }
-                .animation(.linear, value: grid.consumptionData[0].date)
-                .frame(maxHeight: 135)
-                .padding(16)
-               
             }
+            .padding(.top, 8)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
         }
     }
 }

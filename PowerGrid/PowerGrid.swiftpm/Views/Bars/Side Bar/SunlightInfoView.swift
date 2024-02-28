@@ -45,8 +45,9 @@ struct SunlightInfoView: View {
             }
             .animation(.linear, value: grid.sunlightData[0].date)
             .frame(maxHeight: 90)
-            .padding(.top, 10)
-            .padding(16)
+            .padding(.top, 16)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
         }
     }
 }

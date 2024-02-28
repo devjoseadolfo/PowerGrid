@@ -19,8 +19,12 @@ struct ElectricGridApp: App {
                             gameOver = true
                         }
                     }
+                    #if targetEnvironment(macCatalyst)
                     .frame(minWidth: 1200, minHeight: 900)
+                    #endif
                     .ignoresSafeArea()
+                    .persistentSystemOverlays(.hidden)
+                    .statusBarHidden()
                     .grayscale(state ? 1.0 : 0)
                     .disabled(state)
                 HStack {
@@ -90,7 +94,6 @@ struct ElectricGridApp: App {
                        }
                        #endif
                    }
-            .persistentSystemOverlays(.hidden)
         }
         .windowResizability(.contentMinSize)
     }

@@ -33,7 +33,9 @@ struct PowerInfoView: View {
                 }
             }
             .animation(.linear, value: grid.currentUtilityData)
-            .padding(16)
+            .padding(.top, 8)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
         }
     }
 }

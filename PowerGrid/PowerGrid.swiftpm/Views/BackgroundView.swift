@@ -136,7 +136,7 @@ struct BackgroundView: View {
                 warn = false
             }
         })
-       
+        .ignoresSafeArea()
     }
 }
 
