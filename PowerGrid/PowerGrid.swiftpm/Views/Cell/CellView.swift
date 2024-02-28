@@ -17,11 +17,11 @@ struct CellView: View {
             }
         }
         .frame(width: 100, height: 100)
-        /*
+        
         .background(Color(white: 0.9).opacity(0.25))
         .clipShape(RoundedRectangle(cornerRadius: 16))
-     */
-        .roundedRectangleGlass(cornerRadius: 16, material: .ultraThin, colorScheme: .dark)
+     
+     //   .roundedRectangleGlass(cornerRadius: 16, material: .ultraThin, colorScheme: .dark)
         .popover(present: $showPopover,
                  attributes: {
             $0.presentation.animation = .easeIn

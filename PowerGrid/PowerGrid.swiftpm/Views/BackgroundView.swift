@@ -120,6 +120,7 @@ struct BackgroundView: View {
                 .aspectRatio(1, contentMode: .fit)
                 .transition(.opacity)
                 .opacity(grid.currentSunlightData.weather == .lightRains || grid.currentSunlightData.weather == .heavyRains || grid.currentSunlightData.weather == .cloudy ? 1 : 0)
+                .brightness(-0.1)
         }
         .grayscale(grayscaleAmount)
         .brightness(brightnessAmount)
