@@ -13,9 +13,9 @@ struct RightSideBarView: View {
     var body: some View {
         VStack {
             if let cell = grid.selectedCell {
-                CellPopoverView(cell: cell, showPopover: .constant(true))
+                CellPopoverView(cell: cell)
                     .transition(.opacity)
-                    .padding(16)
+                    .padding(32)
             } else {
                 Rectangle()
                     .fill(.clear)

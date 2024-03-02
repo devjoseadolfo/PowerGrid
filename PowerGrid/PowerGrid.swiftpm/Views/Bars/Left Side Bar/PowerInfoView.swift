@@ -3,9 +3,9 @@ import Charts
 
 struct PowerInfoView: View {
     @Environment(ElectricGrid.self) private var grid
-    
+    @State private var showPopover = false
     var body: some View {
-        GlassGroupBox(title: "Power Production", 
+        GlassGroupBox(title: "Power Production",
                       symbolName: "bolt.fill") {
             Chart(grid.currentUtilityData) { data in
                 BarMark(x: .value("Power", data.amount),

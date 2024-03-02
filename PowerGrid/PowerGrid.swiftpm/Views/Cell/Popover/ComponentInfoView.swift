@@ -1,12 +1,11 @@
 import SwiftUI
 
-struct ComponentInfoView<C: Component>: View {
+struct ComponentInfoView: View {
     @Environment(ElectricGrid.self) private var grid
-    @ObservedObject var component: C
+    var component: any Component
     
     var body: some View {
         VStack(spacing: 16) {
-            
             VStack(alignment: .leading, spacing: 10) {
                 if let powerPlant = component as? (any PowerPlant) {
                     ComponentInfoBodyView(title: "Running Cost:",
@@ -93,6 +92,5 @@ struct ComponentInfoView<C: Component>: View {
         .geometryGroup()
         .transition(.opacity)
         .id(component.id)
-        .padding([.horizontal], 16)
     }
 }

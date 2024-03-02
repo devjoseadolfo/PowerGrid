@@ -17,7 +17,7 @@ struct BottomBarView: View {
     }
     
     var hearts: some View {
-        HStack(spacing: 4) {
+        return HStack(spacing: 4) {
             ForEach(1...5, id: \.self) { i in
                 Image(systemName: grid.hearts >= i ? "heart.fill" : "heart.slash")
                     .font(.system(size: 13))
@@ -34,12 +34,6 @@ struct BottomBarView: View {
         .padding(10)
         .padding(.vertical, 2)
         .capsuleGlass(shadowRadius: 8)
-        .overlay {
-            if grid.tutorialLevel == 4 {
-                Tutorial4View()
-                    .offset(y: -90)
-            }
-        }
     }
     
     var production: some View {

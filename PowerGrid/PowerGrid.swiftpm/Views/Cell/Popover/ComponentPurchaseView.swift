@@ -31,8 +31,9 @@ struct ComponentPurchaseView: View {
                         .clipShape(Capsule())
                 }
             }
-            VStack(spacing: 16) {
-                if showPowerPlants {
+            .geometryGroup()
+            if showPowerPlants {
+                VStack(spacing: 8) {
                     ForEach(0..<grid.samplePowerPlants.count, id: \.self) { idx in
                         HStack {
                             Image(grid.samplePowerPlants[idx].imageName)
@@ -50,7 +51,7 @@ struct ComponentPurchaseView: View {
                                     .font(.system(size: 12,
                                                   weight: .regular))
                                     .foregroundStyle(Color.init(white: 0.9).opacity(0.85))
-
+                                
                                 + Text(moneyString(grid.samplePowerPlants[idx].price()))
                                     .font(.system(size: 12,
                                                   weight: .regular,
@@ -60,7 +61,7 @@ struct ComponentPurchaseView: View {
                                     .font(.system(size: 12,
                                                   weight: .regular))
                                     .foregroundStyle(Color.init(white: 0.9).opacity(0.85))
-
+                                
                                 + Text(grid.samplePowerPlants[idx].productionLevel.rawValue)
                                     .font(.system(size: 12,
                                                   weight: .regular,
@@ -70,7 +71,7 @@ struct ComponentPurchaseView: View {
                                     .font(.system(size: 12,
                                                   weight: .regular))
                                     .foregroundStyle(Color.init(white: 0.9).opacity(0.85))
-
+                                
                                 + Text(grid.samplePowerPlants[idx].maintenanceLevel.rawValue)
                                     .font(.system(size: 12,
                                                   weight: .regular,
@@ -88,7 +89,11 @@ struct ComponentPurchaseView: View {
                         }
                         .disabled(grid.money < grid.samplePowerPlants[idx].price())
                     }
-                } else {
+                }
+                .transition(.opacity)
+                .frame(height: 512)
+            } else {
+                VStack(spacing: 8) {
                     ForEach(0..<grid.sampleCustomers.count, id: \.self) { idx in
                         HStack {
                             Image(grid.sampleCustomers[idx].imageName)
@@ -145,10 +150,11 @@ struct ComponentPurchaseView: View {
                         .disabled(grid.money < grid.sampleCustomers[idx].price())
                     }
                 }
+                .transition(.opacity)
+                .frame(height: 512)
             }
         }
         .animation(.easeIn, value: showPowerPlants)
-        .disabled(grid.tutorial)
     }
     
     func moneyString(_ money: Int) -> String {

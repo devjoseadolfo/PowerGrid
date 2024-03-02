@@ -39,8 +39,8 @@ struct CustomerDemandChartView: View {
         }
         .frame(height: 120)
         .padding(16)
-        .padding([.top, .trailing], 4)
-        .roundedRectangleGlass(cornerRadius: 16, material: .thinMaterial)
+        .background(Color.black.opacity(0.25))
+        .clipShape(RoundedRectangle(cornerRadius: 8))
         .animation(.easeIn, value: grid.date)
     }
     

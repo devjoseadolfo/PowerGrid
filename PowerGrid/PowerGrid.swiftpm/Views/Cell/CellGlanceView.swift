@@ -1,12 +1,11 @@
 import SwiftUI
 
-struct CellGlanceView<C: Component>: View {
+struct CellGlanceView: View {
     @Environment(ElectricGrid.self) private var grid
-    @ObservedObject var component: C
+    var component: any Component
     
     var body: some View {
         HStack{
-            //PlayView(playing: playing)
             if let powerPlant = component as? (any PowerPlant) {
                 if !(powerPlant is BatteryStorage) || (powerPlant is BatteryStorage && grid.batteryConsumption.amount == 0) {
                     CircularProgressView(color: .init(.sRGB,

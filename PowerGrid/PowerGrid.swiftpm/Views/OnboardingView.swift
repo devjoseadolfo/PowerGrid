@@ -21,28 +21,26 @@ struct OnboardingView: View {
             Text("PowerGrid puts you in charge of managing a city's electric grid. Are you up for the challenge?")
                 .bodyTextStyle()
                 .multilineTextAlignment(.center)
-                .frame(width: 250)
-            VStack {
+                .frame(width: 256)
+            VStack(spacing: 8) {
                 Button {
-                    grid.tutorial = true
-                    grid.tutorialLevel = 1
                     grid.showOnboarding = false
                 } label: {
-                    Text("Start Tutorial")
+                    Text("New Game")
                         .buttonTextStyle()
                 }
                 .buttonStyle(RoundedRectangleButtonStyle(color: .green))
                 Button {
-                    grid.tutorial = false
-                    grid.tutorialLevel = 0
-                    grid.showOnboarding = false
+                   
                 } label: {
-                    Text("Skip Tutorial")
+                    Text("Open Save")
                         .buttonTextStyle()
                 }
-                .buttonStyle(RoundedRectangleButtonStyle(color: .init(white: 0.6)))
-            } 
-            .frame(width: 200)
+                .buttonStyle(RoundedRectangleButtonStyle(color: .gray))
+                .disabled(true)
+                .opacity(0.5)
+            }
+            .frame(width: 256)
         }
         .padding(64)
         .roundedRectangleGlass(cornerRadius: 64)

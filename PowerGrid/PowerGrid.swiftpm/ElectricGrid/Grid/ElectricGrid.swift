@@ -63,8 +63,6 @@ public class ElectricGrid {
     public var selectedCell: GridCell? = nil
     
     public var showOnboarding: Bool = false
-    public var tutorial: Bool = false
-    public var tutorialLevel: Int = 0
     public var newGame: Bool = false
     public var cellToDelete: GridCell?
     public var sufficientFundsError: Bool = false

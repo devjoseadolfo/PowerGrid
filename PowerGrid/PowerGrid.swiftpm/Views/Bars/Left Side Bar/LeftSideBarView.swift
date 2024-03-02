@@ -4,49 +4,30 @@ struct LeftSideBarView: View {
     @Environment(ElectricGrid.self) private var grid
     
     var selectionEnable: Bool
-    @State private var showPowerInfo: Bool = true
-    @State private var showDemandInfo: Bool = true
-    @State private var showSunlightInfo: Bool = true
-    @State private var showWindInfo: Bool = true
     
     var body: some View {
-        DynamicScrollView {
-            VStack(alignment: .center, spacing: 12) {
-                if selectionEnable, let cell = grid.selectedCell {
-                    CellPopoverView(cell: cell, showPopover: .constant(true))
-                        .transition(.opacity)
-                        .padding(16)
-                        .roundedRectangleGlass(cornerRadius: 32, material: .ultraThin)
-                } else {
-                    PowerInfoView()
-                        .overlay {
-                            if grid.tutorialLevel == 3 {
-                                Tutorial3View()
-                                    .offset(x: 180, y: 0)
-                                    .allowsHitTesting(true)
-                            }
-                        }
-                    DemandInfoView()
-                        .overlay {
-                            if grid.tutorialLevel == 10 {
-                                Tutorial10View()
-                                    .offset(x: 320, y: 20)
-                            }
-                        }
-                    SunlightInfoView()
-                        .overlay {
-                            if grid.tutorialLevel == 11 {
-                                Tutorial11View()
-                                    .offset(x: 320, y: 110)
-                            }
-                        }
-                    WindInfoView()
+        ZStack {
+            if selectionEnable, let cell = grid.selectedCell {
+                CellPopoverView(cell: cell)
+                    .padding(32)
+                    .roundedRectangleGlass(cornerRadius: 32)
+                    .padding(16)
+                    .transition(.opacity)
+            } else {
+                DynamicScrollView {
+                    VStack(alignment: .center, spacing: 8) {
+                        PowerInfoView()
+                        DemandInfoView()
+                        SunlightInfoView()
+                        WindInfoView()
+                    }
+                    .padding(16)
                 }
+                .transition(.opacity)
             }
-            .padding(16)
         }
-        //.padding(16)
         .animation(.default, value: grid.selectedCell)
+       
     }
 }
 
@@ -126,15 +107,12 @@ struct BlurScrollView<Content: View>: View {
                     .transition(.opacity)
                 }
             }
-            
             .onAppear {
                 heightOffset = proxy.size.height - scrollViewSize.height
             }
             .onChange(of: proxy.size.height) { _, newValue in
                 heightOffset = newValue - scrollViewSize.height
             }
-            //.roundedRectangleGlass(cornerRadius: 32, material: .ultraThin)
-            //.animation(.default, value: scrollViewSize.height)
             .frame(height: scrollViewSize.height <= proxy.size.height ? scrollViewSize.height : .none )
             .position(x: proxy.frame(in: .local).midX, y: proxy.frame(in: .local).midY)
             

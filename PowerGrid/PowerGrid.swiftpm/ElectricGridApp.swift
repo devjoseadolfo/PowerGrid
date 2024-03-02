@@ -60,6 +60,7 @@ struct ElectricGridApp: App {
                                   action: {
                             grid.removeComponent(at: cell.index)
                             grid.cellToDelete = nil
+                            grid.selectedCell = nil
                         },
                                   buttonColor: .red,
                                   secondaryActionName: "Cancel",
@@ -85,7 +86,6 @@ struct ElectricGridApp: App {
             }
             .animation(.easeIn.speed(0.75), value: state)
             .animation(.easeIn, value: grid.showOnboarding)
-            .animation(nil, value: grid.tutorialLevel)
             .withHostingWindow { window in
                        #if targetEnvironment(macCatalyst)
                        if let titlebar = window?.windowScene?.titlebar {

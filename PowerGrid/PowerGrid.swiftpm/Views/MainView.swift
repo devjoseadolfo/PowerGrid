@@ -7,8 +7,7 @@ struct MainView: View {
         ViewThatFits {
             HStack(spacing: 8) {
                 LeftSideBarView(selectionEnable: false)
-                    .frame(width: 384, alignment: .leading)
-                    .zIndex(grid.tutorialLevel == 3 || grid.tutorialLevel == 10 || grid.tutorialLevel == 11 ? 10 : 0)
+                    .frame(width: 360)
                 ZStack {
                     GridView()
                         .frame(maxHeight: .infinity)
@@ -19,12 +18,11 @@ struct MainView: View {
                 }
                 .frame(minWidth: 200, maxWidth: .infinity, maxHeight: .infinity)
                 RightSideBarView()
-                    .frame(minWidth: 384, maxWidth: 360, alignment: .trailing)
+                    .frame(width: 360)
             }
             HStack(spacing: 0) {
                 LeftSideBarView(selectionEnable: true)
-                    .frame(minWidth: 384, maxWidth: 360, alignment: .leading)
-                    .zIndex(grid.tutorialLevel == 3 || grid.tutorialLevel == 10 || grid.tutorialLevel == 11 ? 10 : 0)
+                    .frame(width: 360)
                 ZStack {
                     GridView()
                         .frame(maxHeight: .infinity)

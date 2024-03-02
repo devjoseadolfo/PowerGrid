@@ -29,7 +29,6 @@ struct TopBarView: View {
             }
             .buttonStyle(CapsuleButtonStyle())
             .frame(width: 112)
-            .disabled(grid.tutorial)
         }
         .padding(6)
         .capsuleGlass(shadowRadius: 8)
@@ -79,17 +78,10 @@ struct TopBarView: View {
             }
             .buttonStyle(CapsuleButtonStyle())
             .frame(width: 72)
-            .disabled(grid.tutorial)
         }
         .animation(.linear, value: grid.date)
         .padding(6)
         .capsuleGlass(shadowRadius: 8)
-        .overlay {
-            if grid.tutorialLevel == 12 {
-                Tutorial12View()
-                    .offset(x: 90, y: 115)
-            }
-        }
     }
     
     var money: some View {
@@ -106,11 +98,5 @@ struct TopBarView: View {
         .padding(10)
         .padding(.horizontal, 4)
         .capsuleGlass(shadowRadius: 8)
-        .overlay {
-            if grid.tutorialLevel == 8 {
-                Tutorial8View()
-                    .offset(y: 125)
-            }
-        }
     }
 }

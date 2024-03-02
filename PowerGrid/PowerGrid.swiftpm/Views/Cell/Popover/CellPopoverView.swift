@@ -3,7 +3,6 @@ import SwiftUI
 struct CellPopoverView: View {
     @Environment(ElectricGrid.self) private var grid
     var cell: GridCell
-    @Binding var showPopover: Bool
     
     var body: some View {
         VStack(spacing: 16) {
@@ -18,7 +17,7 @@ struct CellPopoverView: View {
                     Spacer()
                     if component is (any PowerPlant) {
                         Button {
-                            component.active.toggle()
+                            component.toggle()
                         } label: {
                             Label("Active", systemImage: component.active ? "play.fill" : "pause.fill")
                                 .labelStyle(.iconOnly)
@@ -29,38 +28,11 @@ struct CellPopoverView: View {
                         }
                         .buttonStyle(CircleButtonStyle(color: component.active ? .green : .gray))
                     }
-                }.padding([.horizontal, .top], 16)
+                }
                 
                 VStack(spacing: 16) {
                     Group {
-                        switch component {
-                        case let windTurbine as WindTurbine:
-                            ComponentInfoView(component: windTurbine)
-                                .environment(grid)
-                        case let solarFarm as SolarFarm:
-                            ComponentInfoView(component: solarFarm)
-                                .environment(grid)
-                        case let naturalGas as NaturalGas:
-                            ComponentInfoView(component: naturalGas)
-                                .environment(grid)
-                        case let hydroelectric as Hydroelectric:
-                            ComponentInfoView(component: hydroelectric)
-                                .environment(grid)
-                        case let residential as Residential:
-                            ComponentInfoView(component: residential)
-                                .environment(grid)
-                        case let commercial as Commercial:
-                            ComponentInfoView(component: commercial)
-                                .environment(grid)
-                        case let industrial as Industrial:
-                            ComponentInfoView(component: industrial)
-                                .environment(grid)
-                        case let batteryStorage as BatteryStorage:
-                            ComponentInfoView(component: batteryStorage)
-                                .environment(grid)
-                        default:
-                            EmptyView()
-                        }
+                        ComponentInfoView(component: component)
                         if let customer = component as? (any Customer) {
                             CustomerDemandChartView(customer: customer)
                                 .padding(.top, 4)
@@ -69,17 +41,13 @@ struct CellPopoverView: View {
                         }
                     }
                     Button {
-                        showPopover = false
                         grid.cellToDelete = cell
                     } label: {
                         Text("Delete")
                             .buttonTextStyle()
                     }
                     .buttonStyle(RoundedRectangleButtonStyle(color: .red))
-                    .padding([.horizontal, .bottom], 16)
                 }
-               
-                
             } else {
                 ComponentPurchaseView(cell: cell)
                     .environment(grid)
@@ -88,6 +56,5 @@ struct CellPopoverView: View {
         .foregroundColor(.white)
         .transition(.opacity)
         .id(cell.id)
-        .disabled(grid.tutorial)
     }
 }

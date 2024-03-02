@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol Component: ObservableObject, Identifiable, Equatable {
+public protocol Component: AnyObject, Identifiable, Equatable {
     var name: String { get }
     static var count: Int { get set }
     var imageName: String { get }

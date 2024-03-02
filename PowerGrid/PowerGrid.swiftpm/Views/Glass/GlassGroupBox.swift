@@ -34,22 +34,18 @@ public struct GlassGroupBox<Content: View>: View {
                         .rotationEffect(.degrees(showContent ? 180 : 0))
                 }
                 .buttonStyle(CircleButtonStyle(color: .gray))
-                .disabled(grid.tutorial)
             }
             .padding([.horizontal, .top], 16)
             .padding(.bottom, showContent ? 0 : 16)
             
-            
             if showContent {
                 content
                     .padding(4)
-                    .transition(.push(from: .top).combined(with: .opacity))
+                    .transition(.opacity.combined(with: .identity))
                     .background(Color.black.opacity(0.25))
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .padding(8)
-                   
             }
-            
         }
         .animation(.default, value: showContent)
         .clipShape(RoundedRectangle(cornerRadius: 16))

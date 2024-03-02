@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CellImageView<C: Component>: View {
+struct CellImageView: View {
     @Environment(ElectricGrid.self) private var grid
     
     var brightness: Double {
@@ -14,7 +14,7 @@ struct CellImageView<C: Component>: View {
         }
     }
     
-    @ObservedObject var component: C
+    var component: any Component
     @State var degree: Double = 0
     
     var body: some View {

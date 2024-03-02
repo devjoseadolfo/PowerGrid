@@ -12,7 +12,7 @@ public protocol Customer: Component {
     var demandLevel: LevelType { get }
     var paymentLevel: LevelType { get }
 
-    func createInitialDemandForecast(startHour: Int)
+    func createInitialDemandForecast(startHour: Int) -> [Int]
     func addToDemandForecast(currentHour: Int)
     func computeDemand(hour: Int) -> Int
     func computePay(percent: Double) -> Int
@@ -21,11 +21,13 @@ public protocol Customer: Component {
 
 extension Customer {
     
-    public func createInitialDemandForecast(startHour: Int) {
+    public func createInitialDemandForecast(startHour: Int) -> [Int] {
+        var newDemandForecast: [Int] = []
         for hour in (startHour...startHour+11) {
             let newHour = hour > 23 ? hour - 24 : hour
-            demandForecast.append(computeDemand(hour: newHour))
+            newDemandForecast.append(computeDemand(hour: newHour))
         }
+        return newDemandForecast
     }
     
     public func addToDemandForecast(currentHour: Int) {
@@ -52,6 +54,7 @@ extension Customer {
     }
 }
 
+@Observable
 public class Residential: Customer {
     public var name = "Residential"
     static public var count = 0
@@ -60,12 +63,12 @@ public class Residential: Customer {
     
     public var active: Bool = true
     
-    @Published public var demand: Int = 0
+    public var demand: Int = 0
     public var maxDemand: Int = 20
     public var demandForecast: [Int] = []
     
     public let payRate: Double = 2.5
-    @Published public var lastPayment: Int = 0
+    public var lastPayment: Int = 0
     
     public let demandLevel: LevelType = .low
     public let paymentLevel: LevelType = .low
@@ -80,11 +83,13 @@ public class Residential: Customer {
     
     public init(startHour: Int = 8) {
         Self.count += 1
-        createInitialDemandForecast(startHour: startHour)
+        demandForecast = createInitialDemandForecast(startHour: startHour)
         demand = demandForecast[0]
     }
 }
 
+
+@Observable
 public class Commercial: Customer {
     public var name = "Commercial"
     static public var count = 0
@@ -93,12 +98,12 @@ public class Commercial: Customer {
     
     public var active: Bool = true
     
-    @Published public var demand: Int = 0
+    public var demand: Int = 0
     public var maxDemand: Int = 30
     public var demandForecast: [Int] = []
     
     public let payRate: Double = 4
-    @Published public var lastPayment: Int = 0
+    public var lastPayment: Int = 0
     
     public let demandLevel: LevelType = .medium
     public let paymentLevel: LevelType = .medium
@@ -113,11 +118,12 @@ public class Commercial: Customer {
     
     public init(startHour: Int = 8) {
         Self.count += 1
-        createInitialDemandForecast(startHour: startHour)
+        demandForecast = createInitialDemandForecast(startHour: startHour)
         demand = demandForecast[0]
     }
 }
 
+@Observable
 public class Industrial: Customer {
     public var name = "Industrial"
     static public var count = 0
@@ -126,12 +132,12 @@ public class Industrial: Customer {
     
     public var active: Bool = true
     
-    @Published public var demand: Int = 0
+    public var demand: Int = 0
     public var maxDemand: Int = 40
     public var demandForecast: [Int] = []
     
     public let payRate: Double = 5
-    @Published public var lastPayment: Int = 0
+    public var lastPayment: Int = 0
     
     public let demandLevel: LevelType = .high
     public let paymentLevel: LevelType = .high
@@ -146,7 +152,7 @@ public class Industrial: Customer {
     
     public init(startHour: Int = 8) {
         Self.count += 1
-        createInitialDemandForecast(startHour: startHour)
+        demandForecast = createInitialDemandForecast(startHour: startHour)
         demand = demandForecast[0]
     }
 }

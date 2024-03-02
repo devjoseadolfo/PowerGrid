@@ -2,7 +2,7 @@ import SwiftUI
 
 struct FuelPurchaseView: View {
     @Environment(ElectricGrid.self) private var grid
-    @ObservedObject var naturalGas: NaturalGas
+    var naturalGas: NaturalGas
     
     var price20Percent: Int {
         naturalGas.getFuelPrice(fuelAmount: 200)

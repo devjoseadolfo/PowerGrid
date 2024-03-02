@@ -11,6 +11,10 @@ public protocol PowerPlant: Component {
     
     var productionLevel: LevelType { get }
     var maintenanceLevel: LevelType { get }
+    
+    func addMaintenance(_ amount: Int)
+    func subtractMaintenance(_ amount: Int)
+    func resetProduction()
 }
 
 public protocol DependablePowerPlant: PowerPlant {
@@ -26,18 +30,40 @@ public protocol StoragePowerPlant: FlexiblePowerPlant {
     var maxStorage: Int { get set }
 }
 
+extension PowerPlant {
+    public func addMaintenance(_ amount: Int) {
+        let newAmount = maintenance + amount
+        maintenance = newAmount > 1000 ? 1000 : newAmount
+    }
+    
+    public func subtractMaintenance(_ amount: Int) {
+        let newAmount = maintenance - amount
+        if newAmount < 0 {
+            maintenance = 0
+        } else {
+            maintenance = newAmount
+        }
+    }
+
+    public func resetProduction() {
+        production = 0
+    }
+}
+
+
+@Observable
 public class WindTurbine: DependablePowerPlant {
     public var name = "Wind Turbine"
     static public var count = 0
     public let imageName: String = "wind"
     public let id: UUID = UUID()
     
-    @Published public var active: Bool = true
+    public var active: Bool = true
     
-    @Published public var production: Int = 0
-    @Published public var maxProduction: Int = 30
+    public var production: Int = 0
+    public var maxProduction: Int = 30
     
-    @Published public var maintenance: Int = 800
+    public var maintenance: Int = 800
     public let maintenanceRate: Int = 3
     
     public let runningCost: Int = 30
@@ -63,18 +89,20 @@ public class WindTurbine: DependablePowerPlant {
     }
 }
 
+
+@Observable
 public class SolarFarm: DependablePowerPlant {
     public var name = "Solar"
     static public var count = 0
     public let imageName: String = "solar"
     public let id: UUID = UUID()
     
-    @Published public var active: Bool = true
+    public var active: Bool = true
     
-    @Published public var production: Int = 0
-    @Published public var maxProduction: Int = 30
+    public var production: Int = 0
+    public var maxProduction: Int = 30
 
-    @Published public var maintenance: Int = 800
+    public var maintenance: Int = 800
     public let maintenanceRate: Int = 1
     
     public let runningCost: Int = 20
@@ -100,22 +128,24 @@ public class SolarFarm: DependablePowerPlant {
     }
 }
 
+
+@Observable
 public class Hydroelectric: FlexiblePowerPlant {
     public var name = "Hydroelectric"
     static public var count = 0
     public let imageName: String = "hydro"
     public let id: UUID = UUID()
     
-    @Published public var active: Bool = true
+    public var active: Bool = true
     
-    @Published public var production: Int = 0
-    @Published public var maxProduction: Int = 40
+    public var production: Int = 0
+    public var maxProduction: Int = 40
     public let productionRate: Int = 5
     
-    @Published public var maintenance: Int = 800
+    public var maintenance: Int = 800
     public let maintenanceRate: Int = 2
     
-    @Published public var reservoirLevel: Int = 800
+    public var reservoirLevel: Int = 800
     public let runningCost: Int = 40
     
     public var productionLevel: LevelType = .high
@@ -181,25 +211,27 @@ public class Hydroelectric: FlexiblePowerPlant {
     }
 }
 
+
+@Observable
 public class NaturalGas: FlexiblePowerPlant {
     public var name = "Natural Gas"
     static public var count = 0
     public let imageName: String = "gas"
     public let id: UUID = UUID()
     
-    @Published public var active: Bool = true
+    public var active: Bool = true
     
-    @Published public var production: Int = 0
-    @Published public var maxProduction: Int = 50
+    public var production: Int = 0
+    public var maxProduction: Int = 50
     public let productionRate: Int = 5
     
-    @Published public var maintenance: Int = 800
+    public var maintenance: Int = 800
     public let maintenanceRate: Int = 3
     
     public let runningCost: Int = 40
     
-    @Published public var fuelLevel: Int = 800
-    @Published public var maxFuelLevel: Int = 1000
+    public var fuelLevel: Int = 800
+    public var maxFuelLevel: Int = 1000
     
     public var productionLevel: LevelType = .high
     public var maintenanceLevel: LevelType = .high
@@ -271,25 +303,26 @@ public class NaturalGas: FlexiblePowerPlant {
 }
 
 
+@Observable
 public class BatteryStorage: StoragePowerPlant {
     public var name = "Battery Storage"
     static public var count = 0
     public let imageName: String = "storage"
     public let id: UUID = UUID()
     
-    @Published public var active: Bool = true
+    public var active: Bool = true
     
-    @Published public var production: Int = 0
-    @Published public var maxProduction: Int = 10
+    public var production: Int = 0
+    public var maxProduction: Int = 10
     
     public var consumption: Int = 0
     public var maxConsumption: Int = 10
     
-    @Published public var storage: Int = 0
-    @Published public var maxStorage: Int = 100
-    @Published public var stored: Int = 0
+    public var storage: Int = 0
+    public var maxStorage: Int = 100
+    public var stored: Int = 0
     
-    @Published public var maintenance: Int = 800
+    public var maintenance: Int = 800
     public let maintenanceRate: Int = 1
     
     public let runningCost: Int = 20
@@ -396,25 +429,5 @@ public class BatteryStorage: StoragePowerPlant {
             stored += amount
             storage = newAmount
         }
-    }
-}
-
-extension PowerPlant {
-    public func addMaintenance(_ amount: Int) {
-        let newAmount = maintenance + amount
-        maintenance = newAmount > 1000 ? 1000 : newAmount
-    }
-    
-    public func subtractMaintenance(_ amount: Int) {
-        let newAmount = maintenance - amount
-        if newAmount < 0 {
-            maintenance = 0
-        } else {
-            maintenance = newAmount
-        }
-    }
-
-    public func resetProduction() {
-        production = 0
     }
 }

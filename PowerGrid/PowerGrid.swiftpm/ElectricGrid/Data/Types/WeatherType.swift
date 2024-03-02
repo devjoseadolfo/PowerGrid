@@ -29,13 +29,13 @@ public enum WeatherType: String, Plottable {
         case .sunny:
             return .init(red: 0.95, green: 0.75, blue: 0.05)
         case .night:
-            return .init(white: 0.25)
+            return .init(white: 0.55)
         case .cloudy:
             return .init(white: 0.75)
         case .lightRains:
             return .init(red: 0.55, green: 0.75, blue: 0.9)
         case .heavyRains:
-            return .init(red: 0.1, green: 0.2, blue: 0.85)
+            return .init(red: 0.1, green: 0.6, blue: 0.9)
         }
     }
 }
