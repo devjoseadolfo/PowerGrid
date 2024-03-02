@@ -10,36 +10,18 @@ struct CellView: View {
     var body: some View {
         ZStack {
             image
-            if showPopover {
+            if grid.selectedCell == cell {
                 Color.green
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .blendMode(.color)
             }
         }
-        .frame(width: 100, height: 100)
-        
+        .frame(width: 96, height: 96)
         .background(Color(white: 0.9).opacity(0.25))
         .clipShape(RoundedRectangle(cornerRadius: 16))
-     
-     //   .roundedRectangleGlass(cornerRadius: 16, material: .ultraThin, colorScheme: .dark)
-        .popover(present: $showPopover,
-                 attributes: {
-            $0.presentation.animation = .easeIn
-            $0.position = .absolute(originAnchor: .left, popoverAnchor: .right)
-            $0.sourceFrameInset.left = -10
-            $0.dismissal.mode = ((grid.tutorialLevel > 4 && grid.tutorialLevel < 8) && cell.index == 13) || (grid.tutorialLevel == 9 && cell.index == 7) ? .none : .tapOutside
-            $0.dismissal.tapOutsideIncludesOtherPopovers = true
-            $0.rubberBandingMode = .none
-            $0.presentation.transition = .opacity
-        },
-                 view: { 
-            CellPopoverView(cell: cell, 
-                            showPopover: $showPopover)
-                    .environment(grid)
-        })
         .onTapGesture {
             if !grid.tutorial {
-                showPopover.toggle()
+                grid.selectedCell = grid.selectedCell == cell ? nil : cell
             }
         }
         .animation(.easeIn, value: grid.date)
@@ -93,7 +75,7 @@ struct CellView: View {
                 }
             }
         })
-        .padding(.vertical, 10)
+        .padding(.vertical, 8)
     }
     
     var image: some View {

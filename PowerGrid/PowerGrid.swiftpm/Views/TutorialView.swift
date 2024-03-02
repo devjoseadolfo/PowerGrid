@@ -103,6 +103,9 @@ public struct Tutorial3View: View {
             .capsuleGlass()
             .offset(y: -20)
         }
+        .onTapGesture {
+            print("TAP!")
+        }
         .environment(\.colorScheme, .dark)
     }
 }

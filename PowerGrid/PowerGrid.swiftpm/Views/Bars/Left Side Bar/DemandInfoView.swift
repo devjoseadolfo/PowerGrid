@@ -5,7 +5,8 @@ struct DemandInfoView: View {
     @Environment(ElectricGrid.self) private var grid
     
     var body: some View {
-        GlassGroupBox(title: "Demand Forecast", symbolName: "powercord.fill") {
+        GlassGroupBox(title: "Demand Forecast", 
+                      symbolName: "powercord.fill") {
             VStack(spacing: 10) {
                 Chart(grid.consumptionData) {
                     BarMark(x: .value("Time", $0.date, unit: .hour),
@@ -44,8 +45,7 @@ struct DemandInfoView: View {
             
                 }
                 .animation(.linear, value: grid.consumptionData[0].date)
-                .frame(minHeight: UIScreen.main.bounds.height > 800 ? 120 : 80, maxHeight: 150)
-                
+                .frame(height: 96)
                 if UIScreen.main.bounds.height > 800 {
                     HStack {
                         Circle()
@@ -66,8 +66,8 @@ struct DemandInfoView: View {
                     }
                 }
             }
-            .padding(.top, 8)
             .padding(.horizontal, 16)
+            .padding(.top, 8)
             .padding(.vertical, 8)
         }
     }

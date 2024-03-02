@@ -4,7 +4,7 @@ extension View {
     public func roundedRectangleGlass(cornerRadius: CGFloat,
                                       material: Material = .ultraThinMaterial,
                                       colorScheme: ColorScheme = .dark) -> some View {
-        return modifier(RoundedRectangleGlassView(cornerRadius: cornerRadius,
+        return modifier(RoundedRectangleGlassModifier(cornerRadius: cornerRadius,
                                                   material: material,
                                                   colorScheme: colorScheme))
     }

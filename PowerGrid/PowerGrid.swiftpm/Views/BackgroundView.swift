@@ -136,6 +136,9 @@ struct BackgroundView: View {
                 warn = false
             }
         })
+        .onTapGesture {
+            grid.selectedCell = nil
+        }
         .ignoresSafeArea()
     }
 }

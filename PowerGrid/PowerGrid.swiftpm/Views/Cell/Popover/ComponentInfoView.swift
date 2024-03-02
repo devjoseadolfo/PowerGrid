@@ -6,29 +6,6 @@ struct ComponentInfoView<C: Component>: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(component.name)
-                        .font(.system(size: 18,
-                                      weight: .bold))
-                    Text(component is (any PowerPlant) ? "POWER PLANT" : "CUSTOMER")
-                        .captionTextStyle()
-                }
-                Spacer()
-                if component is (any PowerPlant) {
-                    Button {
-                        component.active.toggle()
-                    } label: {
-                        Label("Active", systemImage: component.active ? "play.fill" : "pause.fill")
-                            .labelStyle(.iconOnly)
-                            .imageScale(.large)
-                            .font(.system(size: 16, weight: .bold))
-                            .symbolEffect(.bounce, value: component.active)
-                            .frame(width: 24, height: 24)
-                    }
-                    .buttonStyle(CircleButtonStyle(color: component.active ? .green : .gray))
-                }
-            }
             
             VStack(alignment: .leading, spacing: 10) {
                 if let powerPlant = component as? (any PowerPlant) {
@@ -56,10 +33,6 @@ struct ComponentInfoView<C: Component>: View {
                                      green: 0.2,
                                      blue: 0.2,
                                      opacity: 1.0))
-                    CustomerDemandChartView(customer: customer)
-                        
-                        .padding(.top, 4)
-                        .tint(customer is Industrial ? .init(red: 0.5, green: 0.2, blue: 0.2) : (customer is Commercial ? .init(red: 0.7, green: 0.2, blue: 0.2) : .init(red: 0.9, green: 0.2, blue: 0.2)))
                 }
                 if let hydroelectric = component as? Hydroelectric {
                     ComponentInfoBodyView(title: "Reservoir Level:",
@@ -117,5 +90,9 @@ struct ComponentInfoView<C: Component>: View {
                 }
             }
         }
+        .geometryGroup()
+        .transition(.opacity)
+        .id(component.id)
+        .padding([.horizontal], 16)
     }
 }

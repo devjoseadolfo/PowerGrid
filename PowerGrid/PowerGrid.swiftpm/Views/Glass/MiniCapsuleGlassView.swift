@@ -6,7 +6,7 @@ struct MiniCapsuleGlassView: ViewModifier {
         return content
             .background {
                 Capsule()
-                    .foregroundStyle(.regularMaterial)
+                    .foregroundStyle(.thinMaterial)
                 Capsule()
                     .fill(
                         LinearGradient(colors: [.white.opacity(0.1), .white.opacity(0.3)],

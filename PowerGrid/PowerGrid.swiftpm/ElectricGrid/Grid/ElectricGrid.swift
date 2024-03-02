@@ -60,7 +60,9 @@ public class ElectricGrid {
     public let samplePowerPlants: [any PowerPlant] = [NaturalGas(), SolarFarm(), WindTurbine(), Hydroelectric(), BatteryStorage()]
     public let sampleCustomers: [any Customer] = [Residential(), Commercial(), Industrial()]
     
-    public var showOnboarding: Bool = true
+    public var selectedCell: GridCell? = nil
+    
+    public var showOnboarding: Bool = false
     public var tutorial: Bool = false
     public var tutorialLevel: Int = 0
     public var newGame: Bool = false

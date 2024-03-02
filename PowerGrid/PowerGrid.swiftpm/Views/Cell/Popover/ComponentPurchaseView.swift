@@ -6,7 +6,7 @@ struct ComponentPurchaseView: View {
     var cell: GridCell
     
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 16) {
             HStack {
                 Button {
                     showPowerPlants = true
@@ -31,7 +31,7 @@ struct ComponentPurchaseView: View {
                         .clipShape(Capsule())
                 }
             }
-            VStack {
+            VStack(spacing: 16) {
                 if showPowerPlants {
                     ForEach(0..<grid.samplePowerPlants.count, id: \.self) { idx in
                         HStack {
@@ -79,7 +79,6 @@ struct ComponentPurchaseView: View {
                             }
                             Spacer()
                         }
-                        .frame(width: 240)
                         .roundedRectangleGlass(cornerRadius: 16, material: .thin)
                         .transition(.opacity)
                         .grayscale(grid.money >= grid.samplePowerPlants[idx].price() ? 0 : 1.0)
@@ -134,7 +133,6 @@ struct ComponentPurchaseView: View {
                             }
                             Spacer()
                         }
-                        .frame(width: 240)
                         .roundedRectangleGlass(cornerRadius: 16, material: .thin)
                         .transition(.opacity)
                         .grayscale(grid.money >= grid.sampleCustomers[idx].price() ? 0 : 1.0)
@@ -148,7 +146,6 @@ struct ComponentPurchaseView: View {
                     }
                 }
             }
-            .frame(height: 512)
         }
         .animation(.easeIn, value: showPowerPlants)
         .disabled(grid.tutorial)

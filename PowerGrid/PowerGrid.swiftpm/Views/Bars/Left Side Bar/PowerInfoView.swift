@@ -5,14 +5,15 @@ struct PowerInfoView: View {
     @Environment(ElectricGrid.self) private var grid
     
     var body: some View {
-        GlassGroupBox(title: "Power Production", symbolName: "bolt.fill") {
+        GlassGroupBox(title: "Power Production", 
+                      symbolName: "bolt.fill") {
             Chart(grid.currentUtilityData) { data in
                 BarMark(x: .value("Power", data.amount),
                         y: .value("Utility Type", data.utilityDataType))
                     .foregroundStyle(by: .value("Category", data.componentType))
             }
             .chartForegroundStyleScale(range: UtilityData.graphColors(for: grid.currentUtilityData))
-            .frame(maxHeight: 96)
+            .frame(height: 96)
             .chartLegend(.hidden)
             .chartYAxis {
                 AxisMarks(position: .leading) { _ in
@@ -33,7 +34,6 @@ struct PowerInfoView: View {
                 }
             }
             .animation(.linear, value: grid.currentUtilityData)
-            .padding(.top, 8)
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
         }

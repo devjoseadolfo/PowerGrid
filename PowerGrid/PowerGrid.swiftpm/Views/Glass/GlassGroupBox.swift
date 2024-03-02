@@ -39,18 +39,21 @@ public struct GlassGroupBox<Content: View>: View {
             .padding([.horizontal, .top], 16)
             .padding(.bottom, showContent ? 0 : 16)
             
-            ZStack {
-                if showContent {
-                    content
-                        .roundedRectangleGlass(cornerRadius: 8, material: .thin)
-                        .padding(8)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .transformEffect(.identity)
-                }
+            
+            if showContent {
+                content
+                    .padding(4)
+                    .transition(.push(from: .top).combined(with: .opacity))
+                    .background(Color.black.opacity(0.25))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .padding(8)
+                   
             }
+            
         }
-        .roundedRectangleGlass(cornerRadius: 16, material: .ultraThin)
-        .geometryGroup()
+        .animation(.default, value: showContent)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .roundedRectangleGlass(cornerRadius: 16, material: .thin)
     }
 }
 

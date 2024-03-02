@@ -5,7 +5,8 @@ struct WindInfoView: View {
     @Environment(ElectricGrid.self) private var grid
     
     var body: some View {
-        GlassGroupBox(title: "Wind Forecast", symbolName: "wind") {
+        GlassGroupBox(title: "Wind Forecast", 
+                      symbolName: "wind") {
             Chart(grid.windData) {
                 BarMark(x: .value("Time", $0.date, unit: .hour),
                         y: .value("Wind Speed", $0.amount),
@@ -42,10 +43,10 @@ struct WindInfoView: View {
                 }
             }
             .animation(.linear, value: grid.windData[0].date)       
-            .frame(maxHeight: 90)
-            .padding(.top, 8)
+            .frame(height: 90)
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
+            .padding(.top, 8)
         }
     }
 }

@@ -9,14 +9,13 @@ struct CustomerDemandChartView: View {
         Chart(generateUtilityData()) {
             BarMark(x: .value("Time", $0.date, unit: .hour),
                     y: .value("Wind Speed", $0.amount),
-                    width: 10)
+                    width: 12)
             .foregroundStyle(.tint)
         }
         .chartYAxis {
             AxisMarks(position: .leading) { value in
                 if let power = value.as(Int.self) {
                     AxisValueLabel(String(power)+" MW")
-                        .font(.system(size: 8))
                         .foregroundStyle(Color.init(white: 0.95))
                 }
                 AxisGridLine()
@@ -29,7 +28,6 @@ struct CustomerDemandChartView: View {
                     let hour = Calendar.current.component(.hour, from: date)
                     if hour % 3 == 0 && value.index < 11 {
                         AxisValueLabel(hour < 13 ? String(hour == 0 ? 12 : hour) + "AM" :  String(hour-12) + "PM")
-                            .font(.system(size: 8))
                             .foregroundStyle(Color.init(white: 0.95))
                         AxisTick()
                             .foregroundStyle(Color.init(white: 0.95))
@@ -39,10 +37,11 @@ struct CustomerDemandChartView: View {
                     .foregroundStyle(Color.init(white: 0.95))
             }
         }
-        .frame(maxHeight: 100)
-        .padding(8)
+        .frame(height: 120)
+        .padding(16)
         .padding([.top, .trailing], 4)
-        .roundedRectangleGlass(cornerRadius: 8, material: .thinMaterial)
+        .roundedRectangleGlass(cornerRadius: 16, material: .thinMaterial)
+        .animation(.easeIn, value: grid.date)
     }
     
     func generateUtilityData() -> [UtilityData] {

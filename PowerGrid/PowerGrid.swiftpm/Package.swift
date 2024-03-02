@@ -16,6 +16,7 @@ let package = Package(
         .iOSApplication(
             name: "PowerGrid",
             targets: ["AppModule"],
+            teamIdentifier: "6SK4Y4DTME",
             displayVersion: "1.0",
             bundleVersion: "1",
             appIcon: .asset("AppIcon"),
